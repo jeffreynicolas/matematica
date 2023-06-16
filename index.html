@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Verificação de Matriz Simétrica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+    }
+    .symmetric {
+      color: green;
+    }
+    .non-symmetric {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Verificação de Matriz Simétrica</h1>
+  <label for="matrixInput">Insira a matriz:</label><br>
+  <textarea id="matrixInput" placeholder="Digite a matriz"></textarea><br>
+  <button onclick="checkSymmetry()">Verificar Simetria</button><br>
+  <p id="result"></p>
+
+  <script>
+    function isMatrixSymmetric(matrix) {
+      // Verifica se a matriz é quadrada
+      if (matrix.length !== matrix[0].length) {
+        return false;
+      }
+
+      // Verifica se a matriz é simétrica
+      for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < i; j++) {
+          if (matrix[i][j] !== matrix[j][i]) {
+            return false;
+          }
+        }
+      }
+
+      return true;
+    }
+
+    function createMatrixFromString(input) {
+      const rows = input.trim().split("\n");
+      const matrix = [];
+
+      for (let i = 0; i < rows.length; i++) {
+        const rowValues = rows[i].trim().split(" ").map(Number);
+        matrix.push(rowValues);
+      }
+
+      return matrix;
+    }
+
+    function checkSymmetry() {
+      const matrixInput = document.getElementById("matrixInput").value;
+      const matrix = createMatrixFromString(matrixInput);
+
+      const resultElement = document.getElementById("result");
+      if (isMatrixSymmetric(matrix)) {
+        resultElement.innerText = "A matriz é simétrica.";
+        resultElement.className = "symmetric";
+      } else {
+        resultElement.innerText = "A matriz não é simétrica.";
+        resultElement.className = "non-symmetric";
+      }
+    }
+  </script>
+</body>
+</html>
